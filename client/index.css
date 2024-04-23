@@ -1,0 +1,123 @@
+body {
+  margin: 0;
+  line-height: 1.5;
+}
+
+#root {
+  background: rgb(43,48,65);
+  background: radial-gradient(#2a2f3f, #0e1018);
+  color: #d3d7d5;
+  font-family: Verdana, sans-serif;
+  overflow-x: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+.skeletonTile {
+  animation: skeleton-pulse 1s linear infinite alternate;
+  width: 222px;
+  height: 125px;
+  border-radius: 4px;
+}
+
+.skeletonSetHeader {
+  animation: skeleton-pulse 1s linear infinite alternate;
+  width: 150px;
+  height: 30px;
+  border-radius: 4px;
+}
+
+@keyframes skeleton-pulse {
+  0% {
+    background-color: #7f88a3;
+  }
+  100% {
+    background-color: #42485c;
+  }
+}
+
+.setContainer {
+  display: flex;
+  flex-direction: column;
+
+  .setHeader {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 50px 50px -25px 50px;
+  }
+
+  .setItemsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    height: 230px;
+    overflow: auto;
+    /* Hide scrollbar for IE, Edge, and FF */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    .tileContainer {
+      position: relative;
+      z-index: 1;
+      scroll-margin-top: 50px;
+      background: radial-gradient(#2a2f3f, #0e1018);
+
+      .tileBackground {
+        background: radial-gradient(#2a2f3f, #0e1018);
+
+        img {
+          height: 125px;
+          border-radius: 4px;
+          vertical-align: middle;
+          border-style: none;
+        }
+      }
+
+      .titlePlaceholderContainer {
+        height: 125px;
+        width: 222px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+
+        .itemTitle {
+          padding: 0 20px 15px 20px;
+        }
+      }
+    }
+
+    .tileContainer:focus {
+      outline: none;
+
+      .tileBorder {
+        border: 5px solid white;
+        border-radius: 10px;
+        padding: 5px;
+      }
+
+      img {
+        height: 150px;
+      }
+    }
+
+    .tileContainer::after {
+      content: " ";
+      position: absolute;
+      box-shadow: 0px 20px 24px 0px rgba(0, 0, 0, 0.80);
+      left: 12px;
+      width: calc(100% - 24px);
+      bottom: 10px;
+      height: 33px;
+      z-index: -1;
+    }
+
+    .tileContainer:nth-child(1) {
+      margin-left: 50px;
+    }
+  }
+
+  .setItemsContainer::-webkit-scrollbar {
+    display: none;
+  }
+}
