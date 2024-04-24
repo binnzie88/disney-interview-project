@@ -119,6 +119,79 @@ body {
   }
 }
 
+.itemDialog {
+  width: calc(50vw);
+  background: radial-gradient(#2a2f3f, #0e1018);
+  border-radius: 5px;
+  color: #d3d7d5;
+  font-family: Verdana, sans-serif;
+  font-size: 12px;
+  border: 2px solid #7f88a3;
+  box-shadow: 0px 0px 100px 10px rgba(0, 0, 0, 0.80);
+  padding: 0;
+
+  .dialogContentWithVideo {
+    position: relative;
+
+    .dialogText {
+      position: absolute;
+      top: 65%;
+      padding: 0 10px;
+      font-size: 1.1vw;
+  
+      .dialogHeader {
+        font-size: 2vw;
+        margin-bottom: 5px;
+      }
+
+      .disneyOriginal {
+        display: flex;
+        gap: 5px;
+        align-items: end;
+
+        img {
+          width: 2vw;
+        }
+      }
+    }
+  
+    .videoArt {
+      background-color: #000000;
+
+      video {
+        width: 100%;
+      }
+    }
+  }
+
+  .dialogContentWithImage {
+    img {
+      width: 100%;
+    }
+  }
+
+  .dialogContentNoMedia {
+    min-height: 15vh;
+    padding: 20px;
+  }
+
+  .dialogContentWithImage, .dialogContentNoMedia {
+    .dialogText {
+      padding: 10px;
+      font-size: 12px;
+  
+      .dialogHeader {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+.itemDialog:focus {
+  outline: 0;
+}
+
 .skeletonSetHeader {
   animation: skeleton-pulse 1s linear infinite alternate;
   width: 150px;
