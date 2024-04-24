@@ -11,20 +11,126 @@ body {
   overflow-x: hidden;
   height: 100vh;
   width: 100vw;
+  /* Hide scrollbars for IE, Edge, and FF */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.skeletonTile {
-  animation: skeleton-pulse 1s linear infinite alternate;
-  width: 222px;
-  height: 125px;
-  border-radius: 4px;
+#setContainers {
+  margin-top: 50px;
+
+  .setContainer {
+    display: flex;
+    flex-direction: column;
+  
+    .setHeader {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 0 50px -35px 50px;
+    }
+  
+    .setItemsContainer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      height: 230px;
+      padding-right: 50px;
+      overflow: auto;
+  
+      .tileContainer {
+        position: relative;
+        z-index: 1;
+        scroll-margin: 50px;
+  
+        .tileBackground, img, .titlePlaceholderContainer {
+          -webkit-transition: -webkit-transform 0.3s;
+          transition: transform 0.3s;
+        }
+
+        img, .titlePlaceholderContainer, .skeletonTileContainer {
+          outline: 3px solid transparent;
+          transition: outline-color 0.3s,  border-radius 0.3s,  padding 0.3s;
+        }
+  
+        .tileBackground {
+          background: radial-gradient(#2a2f3f, #0e1018);
+          border-radius: 5px;
+  
+          img {
+            height: 125px;
+            border-radius: 5px;
+            vertical-align: middle;
+            border-style: none;
+          }
+        }
+  
+        .titlePlaceholderContainer {
+          height: 125px;
+          width: 222px;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+  
+          .itemTitle {
+            padding: 0 20px 15px 20px;
+          }
+        }
+      }
+  
+      .tileContainer:focus {
+        outline: none;
+  
+        .tileBackground, img, .titlePlaceholderContainer {
+          -webkit-transform: scale(1.03);
+          transform: scale(1.03);
+        }
+  
+        img, .titlePlaceholderContainer, .skeletonTileContainer {
+          outline-color: #e8ecfa;
+          border-radius: 8px;
+          padding: 3px;
+        }
+  
+        .skeletonTile {
+          border-radius: 7px;
+        }
+      }
+  
+      .tileContainer::after {
+        content: " ";
+        position: absolute;
+        box-shadow: 0px 20px 24px 0px rgba(0, 0, 0, 0.80);
+        left: 12px;
+        width: calc(100% - 24px);
+        bottom: 10px;
+        height: 33px;
+        z-index: -1;
+      }
+  
+      .tileContainer:nth-child(1) {
+        margin-left: 50px;
+      }
+    }
+  
+    .setItemsContainer::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }
 
 .skeletonSetHeader {
   animation: skeleton-pulse 1s linear infinite alternate;
   width: 150px;
   height: 30px;
-  border-radius: 4px;
+  border-radius: 5px;
+}
+
+.skeletonTile {
+  animation: skeleton-pulse 1s linear infinite alternate;
+  width: 222px;
+  height: 125px;
+  border-radius: 5px;
 }
 
 @keyframes skeleton-pulse {
@@ -33,91 +139,5 @@ body {
   }
   100% {
     background-color: #42485c;
-  }
-}
-
-.setContainer {
-  display: flex;
-  flex-direction: column;
-
-  .setHeader {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 50px 50px -25px 50px;
-  }
-
-  .setItemsContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    height: 230px;
-    overflow: auto;
-    /* Hide scrollbar for IE, Edge, and FF */
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-
-    .tileContainer {
-      position: relative;
-      z-index: 1;
-      scroll-margin-top: 50px;
-      background: radial-gradient(#2a2f3f, #0e1018);
-
-      .tileBackground {
-        background: radial-gradient(#2a2f3f, #0e1018);
-
-        img {
-          height: 125px;
-          border-radius: 4px;
-          vertical-align: middle;
-          border-style: none;
-        }
-      }
-
-      .titlePlaceholderContainer {
-        height: 125px;
-        width: 222px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-
-        .itemTitle {
-          padding: 0 20px 15px 20px;
-        }
-      }
-    }
-
-    .tileContainer:focus {
-      outline: none;
-
-      .tileBorder {
-        border: 5px solid white;
-        border-radius: 10px;
-        padding: 5px;
-      }
-
-      img {
-        height: 150px;
-      }
-    }
-
-    .tileContainer::after {
-      content: " ";
-      position: absolute;
-      box-shadow: 0px 20px 24px 0px rgba(0, 0, 0, 0.80);
-      left: 12px;
-      width: calc(100% - 24px);
-      bottom: 10px;
-      height: 33px;
-      z-index: -1;
-    }
-
-    .tileContainer:nth-child(1) {
-      margin-left: 50px;
-    }
-  }
-
-  .setItemsContainer::-webkit-scrollbar {
-    display: none;
   }
 }

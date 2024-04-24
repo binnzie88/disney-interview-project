@@ -7,7 +7,9 @@ class SkeletonPage extends HTMLElement {
       for (let j = 0; j < 10; j++) {
         skeletonTiles += `
           <div class="tileContainer" tabindex="-1" id="item-`+i+`-`+j+`">
-            <div class="skeletonTile"></div>
+            <div class="skeletonTileContainer" id="skeleton-`+i+`-`+j+`">
+              <div class="skeletonTile"></div>
+            </div>
           </div>
         `;
       }
@@ -18,7 +20,11 @@ class SkeletonPage extends HTMLElement {
         </div>
       `;
     }
-    this.innerHTML = skeletonSets;
+    this.innerHTML = `
+      <div id="setContainers">
+        `+skeletonSets+`
+      </div>
+    `;
   }
 }
 

@@ -130,20 +130,20 @@ function buildItemTile(item, parentIdx, idx) {
   const parentAndTileId = parentIdx+"-"+idx;
   return `
     <div class="tileContainer" tabindex="-1" id="item-`+parentAndTileId+`">
-      <div class="tileBorder">
-        <div class="tileBackground">
-          <div class="skeletonTile" id="skeleton-`+parentAndTileId+`"></div>
-          <div class="titlePlaceholderContainer" style="display:none" id="tempTitle-`+parentAndTileId+`">
-            <div class="itemTitle">`+title+`</div>
-          </div>
-          <img 
-            style="display:none"
-            id="image-`+parentAndTileId+`" 
-            src="`+imageUrl+`" 
-            onload="onImageLoad(`+parentIdx+`, `+idx+`)" 
-            onerror="onImageError(`+parentIdx+`, `+idx+`)"
-          >
+      <div class="tileBackground">
+        <div class="skeletonTileContainer" id="skeleton-`+parentAndTileId+`">
+          <div class="skeletonTile"></div>
         </div>
+        <div class="titlePlaceholderContainer" style="display:none" id="tempTitle-`+parentAndTileId+`">
+          <div class="itemTitle">`+title+`</div>
+        </div>
+        <img 
+          style="display:none"
+          id="image-`+parentAndTileId+`" 
+          src="`+imageUrl+`" 
+          onload="onImageLoad(`+parentIdx+`, `+idx+`)" 
+          onerror="onImageError(`+parentIdx+`, `+idx+`)"
+        >
       </div>
     </div>
   `;
@@ -199,7 +199,7 @@ function move(x, y, direction, callback) {
   }
   const newlySelectedElement = document.getElementById('item-'+newY+'-'+newX);
   newlySelectedElement?.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
-  newlySelectedElement?.focus();
+  newlySelectedElement?.focus({ preventScroll: true });
   callback(newX, newY);
 }
 
@@ -208,7 +208,9 @@ function createSkeletonSet(setIdx) {
   for (let i = 0; i < 10; i++) {
     skeletonTiles += `
       <div class="tileContainer" tabindex="-1" id="item-`+setIdx+`-`+i+`">
-        <div class="skeletonTile"></div>
+        <div class="skeletonTileContainer" id="skeleton-`+setIdx+`-`+i+`">
+          <div class="skeletonTile"></div>
+        </div>
       </div>
     `;
   }
