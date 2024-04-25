@@ -170,6 +170,8 @@ body {
   }
 
   .dialogContentNoMedia {
+    display: flex;
+    flex-direction: column;
     min-height: 15vh;
     padding: 20px;
   }
@@ -184,6 +186,21 @@ body {
         margin-bottom: 10px;
       }
     }
+  }
+
+  .dialogButton {
+    width: fit-content;
+    padding: 8px 15px;
+    background-color: #525f87;
+    border: none;
+    border-radius: 5px;
+    color: #d3d7d5;
+    align-self: end;
+  }
+
+  .dialogButton:focus-visible {
+    outline: 2px solid #d3d7d5;
+    outline-offset: 3px;
   }
 }
 

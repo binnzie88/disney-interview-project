@@ -1,5 +1,5 @@
 import { SkeletonPage } from "./SkeletonPage";
-import { loadVisibleRefSets, moveFocus, parseHomeJson } from "./utils";
+import { getTutorialDialogContent, loadVisibleRefSets, moveFocus, parseHomeJson } from "./utils";
 
 function loadHomePage() {
   let fullSets = new Map();
@@ -12,6 +12,10 @@ function loadHomePage() {
   // Display skeleton loading page while everything else loads
   const skeletonPage = new SkeletonPage();
   rootElement.innerHTML = skeletonPage.innerHTML;
+
+  // Show the initial dialog to give users a tutorial for navigating the page
+  dialog.innerHTML = getTutorialDialogContent();
+  dialog.showModal();
   
   /**
    * Use keyboard to navigate page as if it were a remote.
@@ -21,11 +25,12 @@ function loadHomePage() {
    *   - Escape/Delete/Backspace: close dialog
    */
   document.onkeydown = (e) => {
-    e.preventDefault();
-    switch (e.key) {
+    switch (e.code) {
       case "Enter":
+      case "Space":
         // Show dialog for focused item
         if (!dialog.open) {
+          e.preventDefault();
           const focusedTileElement = document.activeElement;
           const item = fullSets.get(focusedTileElement.dataset.setid)?.items?.get(focusedTileElement.dataset.itemid);
           if (item != null) {
@@ -38,6 +43,7 @@ function loadHomePage() {
       case "Backspace":
       case "Delete":
         // Close dialog
+        e.preventDefault();
         dialog.close();
         break;
       case "ArrowDown":
@@ -45,6 +51,7 @@ function loadHomePage() {
       case "ArrowLeft":
       case "ArrowRight":
         // Move focus
+        e.preventDefault();
         if (!dialog.open) {
           moveFocus(focusedX, focusedY, e.key, (x, y) => {
             focusedX = x;
@@ -53,6 +60,7 @@ function loadHomePage() {
         }
         break;
       default:
+        e.preventDefault();
         console.log('Unsupported key pressed: '+e.key);
         break;
     }

@@ -107,14 +107,43 @@ export function createSkeletonSet(setIdx) {
 }
 
 /**
+ * Creates the default dialog tutorial content to display when the user first loads the home page
+ */
+export function getTutorialDialogContent() {
+  return `
+    <div class="dialogContentNoMedia">
+      <div class="dialogText">
+        <div class="dialogHeader">
+          Welcome!
+        </div>
+        This page is designed to mimic a living room device, so mouse interactions are disabled.<br/>
+        To interact with this page, use the following keys:
+        <ul>
+          <li>
+            Arrow Keys: navigate around the page and change the focused item.
+          </li>
+          <li>
+            Enter/Return/Space: select an item and view details about it.
+          </li>
+          <li>
+            Esc/Delete/Backspace: exit any currently-visible dialog.
+          </li>
+        </ul>
+      </div>
+      <button class="dialogButton" onClick="closeDialog()">Let's go!</button>
+    </div>
+  `;
+}
+
+/**
  * Tiles display a skeleton loading state by default. When the image is done loading, hide the skeleton element
  * and display the image element. This prevents the image from displaying partially while loading on slower networks.
  */
 window.onImageLoad = function(parentIdx, idx) {
   const parentAndTileId = parentIdx+"-"+idx;
-  let skeletonElement = document.getElementById('skeleton-'+parentAndTileId);
+  const skeletonElement = document.getElementById('skeleton-'+parentAndTileId);
   skeletonElement.style.display = 'none';
-  let imageElement = document.getElementById('image-'+parentAndTileId);
+  const imageElement = document.getElementById('image-'+parentAndTileId);
   imageElement.style.display = 'inline';
 };
 
@@ -124,8 +153,16 @@ window.onImageLoad = function(parentIdx, idx) {
  */
 window.onImageError = function(parentIdx, idx) {
   const parentAndTileId = parentIdx+"-"+idx;
-  let skeletonElement = document.getElementById('skeleton-'+parentAndTileId);
+  const skeletonElement = document.getElementById('skeleton-'+parentAndTileId);
   skeletonElement.style.display = 'none';
-  let titlePlaceholderElement = document.getElementById("tempTitle-"+parentAndTileId);
+  const titlePlaceholderElement = document.getElementById("tempTitle-"+parentAndTileId);
   titlePlaceholderElement.style.display = 'flex';
+}
+
+/**
+ * Closes the dialog (used only by the button inside the tutorial dialog)
+ */
+window.closeDialog = function() {
+  const dialog = document.getElementById("item-dialog");
+  dialog.close();
 }
