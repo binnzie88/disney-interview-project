@@ -28,6 +28,7 @@ function loadHomePage() {
     switch (e.code) {
       case "Enter":
       case "Space":
+      case "NumpadEnter":
         if (!dialog.open) {
           // Show dialog for focused item
           e.preventDefault();
@@ -67,7 +68,7 @@ function loadHomePage() {
         break;
       default:
         e.preventDefault();
-        console.log('Unsupported key pressed: '+e.key);
+        console.log('Unsupported key pressed: '+e.code);
         break;
     }
   };
