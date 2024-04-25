@@ -16,6 +16,7 @@ To view the app, visit https://disney-interview-project-8a34baf628fa.herokuapp.c
 
 ## Key Features
 - Items smoothly scale up and show a white border when focused, then scale back down and remove the border when unfocused
+- Items resize dynamically to display better at different window sizes (showing fewer items in smaller windows, etc.)
 - Ref sets only load once they are at least partly visible on the page
 - Tile images only display once they are fully loaded so no partial images show up; tiles show a skeleton loading state while the image is loading
 - If an image fails to load (see The Mandalorian tile in the first row), a default tile with the item's title is shown
