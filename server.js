@@ -7,6 +7,7 @@ const axios = require('axios');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'client')));
+app.use(express.static(path.join(__dirname, 'client/dist')));
 
 app.get("/api/home", (_, res) => {
   axios.get('https://cd-static.bamgrid.com/dp-117731241344/home.json').then((response) => {
@@ -34,7 +35,7 @@ app.get("/api/ref/:refId", (req, res) => {
 })
 
 app.get('/*', (_, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'index.html'));
+  res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
 });
 
 app.listen(port, () => {

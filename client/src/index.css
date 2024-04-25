@@ -147,7 +147,7 @@ body {
       .disneyOriginal {
         display: flex;
         gap: 5px;
-        align-items: end;
+        align-items: center;
 
         img {
           width: 2vw;
