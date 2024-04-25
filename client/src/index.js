@@ -65,7 +65,7 @@ function loadHomePage() {
   window.addEventListener("wheel", e => e.preventDefault(), { passive:false })
 
   // Get json data from home api and build home page
-  axios.get(location.href + 'api/home').then((response) => {
+  axios.get(location.origin + '/api/home').then((response) => {
     if (response.data?.error != null) {
       console.error("Error received:");
       console.error(response.data.error);
