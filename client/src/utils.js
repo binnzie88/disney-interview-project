@@ -130,7 +130,7 @@ export function getTutorialDialogContent() {
           </li>
         </ul>
       </div>
-      <button class="dialogButton" onClick="closeDialog()">Let's go!</button>
+      <button class="dialogButton" id="dialog-button">Let's go!</button>
     </div>
   `;
 }
@@ -157,12 +157,4 @@ window.onImageError = function(parentIdx, idx) {
   skeletonElement.style.display = 'none';
   const titlePlaceholderElement = document.getElementById("tempTitle-"+parentAndTileId);
   titlePlaceholderElement.style.display = 'flex';
-}
-
-/**
- * Closes the dialog (used only by the button inside the tutorial dialog)
- */
-window.closeDialog = function() {
-  const dialog = document.getElementById("item-dialog");
-  dialog.close();
 }

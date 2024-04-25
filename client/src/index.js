@@ -28,14 +28,20 @@ function loadHomePage() {
     switch (e.code) {
       case "Enter":
       case "Space":
-        // Show dialog for focused item
         if (!dialog.open) {
+          // Show dialog for focused item
           e.preventDefault();
           const focusedTileElement = document.activeElement;
           const item = fullSets.get(focusedTileElement.dataset.setid)?.items?.get(focusedTileElement.dataset.itemid);
           if (item != null) {
             dialog.innerHTML = item.getDialogContent();
             dialog.showModal();
+          }
+        } else {
+          // If the tutorial dialog is open and the button is focused, close the dialog
+          const dialogButton = document.getElementById("dialog-button");
+          if (dialogButton != null && dialogButton === document.activeElement) {
+            dialog.close();
           }
         }
         break;

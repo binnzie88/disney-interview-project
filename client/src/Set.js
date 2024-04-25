@@ -83,7 +83,7 @@ export class RefSet extends Set {
   loadFullSet() {
     this.isLoading = true;
     // Get set data from the api by refId
-    axios.get(location.href + 'api/ref/' + this.refId).then((response) => {
+    axios.get(location.origin + '/api/ref/' + this.refId).then((response) => {
       if (response.data?.error != null) {
         console.error("Error received:");
         console.error(response.data.error);
