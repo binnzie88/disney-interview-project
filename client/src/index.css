@@ -1,6 +1,34 @@
 body {
   margin: 0;
   line-height: 1.5;
+  /* Define custom variables to determine tile size at different page widths */
+  --five-tile-width: 17vw;
+  --four-tile-width: 21vw;
+  --three-tile-width: 27vw;
+  --two-tile-width: 37vw;
+  --tile-width: var(--five-tile-width);
+  --tile-height: calc(var(--tile-width) / 1.78);
+}
+
+@media (max-width: 1450px) {
+  /* On screens 1450px wide or less, show 4 tiles at a time */
+  body {
+    --tile-width: var(--four-tile-width);
+  }
+}
+
+@media (max-width: 1024px) {
+  /* On screens 1024px wide or less, show 3 tiles at a time */
+  body {
+    --tile-width: var(--three-tile-width);
+  }
+}
+
+@media (max-width: 775px) {
+  /* On screens 775px wide or less, show 2 tiles at a time */
+  body {
+    --tile-width: var(--two-tile-width);
+  }
 }
 
 #root {
@@ -34,7 +62,7 @@ body {
       align-items: center;
       justify-content: space-between;
       gap: 20px;
-      height: 230px;
+      height: calc(var(--tile-height) + 105px);
       padding-right: 50px;
       overflow: auto;
       /* Hide scrollbars for Chrome, IE, Edge, and FF */
@@ -61,7 +89,7 @@ body {
           border-radius: 5px;
   
           img {
-            height: 125px;
+            width: var(--tile-width);
             border-radius: 5px;
             vertical-align: middle;
             border-style: none;
@@ -69,8 +97,8 @@ body {
         }
   
         .titlePlaceholderContainer {
-          height: 125px;
-          width: 222px;
+          height: var(--tile-height);
+          width: var(--tile-width);
           display: flex;
           flex-direction: column;
           justify-content: flex-end;
@@ -221,8 +249,8 @@ body {
 
 .skeletonTile {
   animation: skeleton-pulse 1s linear infinite alternate;
-  width: 222px;
-  height: 125px;
+  width: var(--tile-width);
+  height: var(--tile-height);
   border-radius: 5px;
 }
 

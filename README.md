@@ -8,7 +8,8 @@ To view the app, visit https://disney-interview-project-8a34baf628fa.herokuapp.c
 ## Supported Interactions/Browsers
 - This project was built to work best on Google Chrome, but also works well on Firefox or Edge. _Safari is not supported._
 - Mouse interactions (specifically, clicking and scrolling) are disabled to better mimic a living room device scenario.
-- Specific keyboard interactions are supported as follows (to mimic remote control interactions):
+- Since this page only supports keyboard navigation, it will not work with touch screens/mobile devices.
+- Keyboard interactions are supported as follows (to mimic remote control interactions):
   - **Arrow Keys:** navigate around the page, changing which item is focused.
   - **Enter/Return/Space:** select an item (displays a dialog of information about the item).
   - **Escape/Delete/Backspace:** close the item dialog and go back to scrolling through items.

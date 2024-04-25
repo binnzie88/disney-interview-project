@@ -65,6 +65,7 @@ export class RefSet extends Set {
     this.refId = set.refId;
     this.type = set.refType;
     this.isLoading = false;
+    this.isLoaded = false;
     this.idx = idx;
     this.setElement = createSkeletonSet(idx);
   }
@@ -77,29 +78,32 @@ export class RefSet extends Set {
     const containerElement = document.getElementById("container-"+this.idx);
     const { top, bottom } = containerElement.getBoundingClientRect();
     const visibleHeight = window.innerHeight || document.documentElement.clientHeight;
-    return !this.isLoading && (top > 0 && top < visibleHeight) || (bottom > 0 && bottom < visibleHeight);
+    return !this.isLoading && !this.isLoaded && (top > 0 && top < visibleHeight) || (bottom > 0 && bottom < visibleHeight);
   }
 
   loadFullSet() {
-    this.isLoading = true;
-    // Get set data from the api by refId
-    axios.get(location.origin + '/api/ref/' + this.refId).then((response) => {
-      if (response.data?.error != null) {
-        console.error("Error received:");
-        console.error(response.data.error);
-        return null;
-      } else if (response.data?.data == null) {
-        console.log("No data received, but also no error");
-        return null;
-      } else {
-        const responseData = response.data?.data;
-        const result = responseData[Object.keys(responseData)[0]];
-        // The postLoadCallback here updates the tile element, stores the new full set, and removes the old ref set
-        this.postLoadCallback(new FullSet(result, this.idx));
-      }
-    }).catch((e) => {
-      console.error("Error getting ref "+this.refId+":");
-      console.error(e);
-    });
+    if (!this.isLoaded && !this.isLoading) {
+      this.isLoading = true;
+      // Get set data from the api by refId
+      axios.get(location.origin + '/api/ref/' + this.refId).then((response) => {
+        if (response.data?.error != null) {
+          console.error("Error received:");
+          console.error(response.data.error);
+          return null;
+        } else if (response.data?.data == null) {
+          console.log("No data received, but also no error");
+          return null;
+        } else {
+          const responseData = response.data?.data;
+          const result = responseData[Object.keys(responseData)[0]];
+          // The postLoadCallback here updates the tile element, stores the new full set, and removes the old ref set
+          this.postLoadCallback(new FullSet(result, this.idx));
+          this.isLoaded = true;
+        }
+      }).catch((e) => {
+        console.error("Error getting ref "+this.refId+":");
+        console.error(e);
+      });
+    }
   }
 }
