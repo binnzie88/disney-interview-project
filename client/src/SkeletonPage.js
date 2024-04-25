@@ -1,8 +1,10 @@
 import { createSkeletonSet } from "./utils";
 
-export class SkeletonPage extends HTMLElement {
+/**
+ * This is the initial skeleton home page that displays while all the individual sets/items load
+ */
+export class SkeletonPage {
   constructor() {
-    super();
     let skeletonSets = "";
     for (let i = 0; i < 10; i++) {
       skeletonSets += createSkeletonSet(i);
@@ -14,5 +16,3 @@ export class SkeletonPage extends HTMLElement {
     `;
   }
 }
-
-customElements.define('skeleton-page', SkeletonPage);

@@ -1,3 +1,9 @@
+/**
+ * Note: not all data on the provided items is represented in these classes.
+ * In a real-world scenario, this would get built out more thoroughly depending on the features/needs at hand.
+ * For this project, I picked a subset of the data that I thought would be relevant.
+ */
+
 export class Item {
   constructor(item, setId) {
     this.contentId = item.contentId;
@@ -21,6 +27,7 @@ export class Item {
       </div>
     `;
 
+    // Display available ratings
     if (this.ratings != null) {
       let ratingsElements = ``;
       this.ratings.forEach((rating) => {
@@ -47,6 +54,7 @@ export class Item {
       }
     }
 
+    // Display original release date if available
     if (this.releases != null) {
       let releaseElements = ``;
       this.releases.forEach((release) => {
@@ -72,6 +80,7 @@ export class Item {
       }
     }
 
+    // Display label if item is a Disney+ original
     if (this.isDisneyPlusOriginal) {
       dialogTextContent += `
         <div class="disneyOriginal">
@@ -85,6 +94,7 @@ export class Item {
     const tileImageUrl = this.getTileImage(1.78);
     const dialogTextContainer = `<div class="dialogText">`+dialogTextContent+`</div>`;
     return (videoArtUrl != null && videoArtUrl !== '') ? 
+    // If item has video art, display it with details layered on top
     `
       <div class="dialogContentWithVideo">
         <div class="videoArt">
@@ -95,12 +105,14 @@ export class Item {
         `+dialogTextContainer+`
       </div>
     ` : (tileImageUrl != null && tileImageUrl !== '') ?
+    // If item has a tile image but no video art, display the image with details listed below
     `
       <div class="dialogContentWithImage">
         <img src="`+tileImageUrl+`">
         `+dialogTextContainer+`
       </div>
     ` : 
+    // If item has no video art or tile image, just display details
     `
       <div class="dialogContentNoMedia">
         `+dialogTextContainer+`
@@ -108,7 +120,14 @@ export class Item {
     `;
   }
 
+  /**
+   * I opted to use a separate getTileElement function here rather than setting the object's innerHtml since I expect
+   * that there would be different use cases for displaying items in a real-world scenario. In that case, I'd build
+   * out other ways to visualize the item as needed.
+   */
   getTileElement(setIdx, tileIdx) {
+    // For this project, I chose to always display the 1.78 tile image. In a real-world scenario, I would
+    // choose this more dynamically for different use cases
     const imageUrl = this.getTileImage(1.78);
     const title = this.getDefaultTitleText();
 
@@ -134,6 +153,11 @@ export class Item {
     `;
   }
 }
+
+/**
+ * In the provided home data, these are the only 3 item types. In a real-world scenario there may be
+ * other possible options, and depending on those I would maybe tweak my implementation strategy here.
+ */
 
 export class CollectionItem extends Item {
   type = "StandardCollection";

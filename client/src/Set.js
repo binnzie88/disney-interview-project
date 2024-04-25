@@ -1,6 +1,12 @@
 import { CollectionItem, SeriesItem, ProgramItem } from "./Item";
 import { createSkeletonSet } from "./utils";
 
+/**
+ * Note: not all data on the provided sets is represented in these classes.
+ * In a real-world scenario, this would get built out more thoroughly depending on the features/needs at hand.
+ * For this project, I picked a subset of the data that I thought would be relevant.
+ */
+
 export class Set {
   constructor(set) {
     this.defaultTitle = set.text?.title?.full?.set?.default;
@@ -76,6 +82,7 @@ export class RefSet extends Set {
 
   loadFullSet() {
     this.isLoading = true;
+    // Get set data from the api by refId
     axios.get(location.href + 'api/ref/' + this.refId).then((response) => {
       if (response.data?.error != null) {
         console.error("Error received:");
@@ -87,6 +94,7 @@ export class RefSet extends Set {
       } else {
         const responseData = response.data?.data;
         const result = responseData[Object.keys(responseData)[0]];
+        // The postLoadCallback here updates the tile element, stores the new full set, and removes the old ref set
         this.postLoadCallback(new FullSet(result, this.idx));
       }
     }).catch((e) => {
